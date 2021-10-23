@@ -1,0 +1,66 @@
+﻿@model IEnumerable<ToDoListApp.Models.Quest>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <h3>Quest Name</h3>
+            </th>
+            <th>
+                <div class="btn-group" id="grpBtn">
+                    <a asp-action="All" type="button" class="btn btn-default" id="All">All</a>
+                    <a asp-action="Active" type="button" class="btn btn-default" id="Active">Active</a>
+                    <a asp-action="doneList" type="button" class="btn btn-default" id="Done">Done</a>
+                </div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.isDone != true)
+            {
+                <tr>
+                    <td>
+                        @if (item.isDone == true && item.isImportant == true)
+                        {
+                            <b>
+                                <s>
+                                    @item.QuestName
+                                </s>
+                            </b>
+                        }
+                        else if (item.isImportant == true && item.isDone == false)
+                        {
+                            <b>
+                                @item.QuestName
+                            </b>
+                        }
+                        else if (item.isDone == true && item.isImportant == false)
+                        {
+                            <s>
+                                @item.QuestName
+                            </s>
+                        }
+                        else
+                        {
+                            @item.QuestName
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Important" asp-route-id="@item.ID" class="btn btn-primary">
+                            <img src="~/images/chat.png" />
+                        </a>
+                        <a asp-action="Done" asp-route-id="@item.ID" class="btn btn-success">
+                            <img src="~/images/correct.png" />
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-danger">
+                            <img src="~/images/trash.png" />
+                        </a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
